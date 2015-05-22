@@ -14,7 +14,7 @@ public class GetHome implements Route{
 
 	public Object handle(Request request, Response response) throws Exception {
 		String string = "No data";
-		String string1 = getFileWithUtil("file/test.txt");
+		String string1 = getFileWithUtil("file/home.html");
 		
 		return string1;
 	}

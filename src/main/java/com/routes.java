@@ -11,5 +11,6 @@ public class routes {
 	 
 	public static void main(String[] args) {
 		get("/home",  new GetHome());
+		post("/buy",  new BuyNow());
 	}
 }

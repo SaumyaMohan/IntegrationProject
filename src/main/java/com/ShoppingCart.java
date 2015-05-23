@@ -36,6 +36,10 @@ public class ShoppingCart {
 		//Recompute the total
 		this.totalCost += (item.getPrice() * quantity);
 	}
+	
+	public Map<ShoppingCartItem, Integer> getShoppingCartItems(){
+		return this.items;
+	}
 
 	@Override
 	public String toString(){

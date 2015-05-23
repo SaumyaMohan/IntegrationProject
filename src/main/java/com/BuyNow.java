@@ -2,6 +2,8 @@ package main.java.com;
 
 import java.util.Set;
 
+import main.java.PayPal.PaypalIntegration;
+import main.java.PayPal.SetExpressCheckout;
 import spark.Request;
 import spark.Response;
 import spark.Route;
@@ -46,7 +48,15 @@ public class BuyNow implements Route{
 			stuffToBuy.addItemToShoppingCart(bananas, numBananas);
 		}
 		
+		String redirectURL = PaypalIntegration.performSetExpressCheckout(stuffToBuy);
+		
+		if (!redirectURL.equalsIgnoreCase(PaypalIntegration.API_FAILURE)){
+			response.redirect(redirectURL);
+		}
+		
 		return stuffToBuy.toString();
+		
+		
 		
 		//return "Parameters: " + params;
 	}

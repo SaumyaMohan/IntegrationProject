@@ -26,7 +26,7 @@ public class BuyNow implements Route{
 		
 		//TEMP
 		int numOranges = 1;
-		int numApples = 1;
+		int numApples = 2;
 		int numBananas = 1;
 		
 		//Create a new shopping cart
@@ -54,11 +54,10 @@ public class BuyNow implements Route{
 			response.redirect(redirectURL);
 		}
 		
-		return stuffToBuy.toString();
+		//Internal error
+		response.status(500);
 		
-		
-		
-		//return "Parameters: " + params;
+		return null;	
 	}
 
 }

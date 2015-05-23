@@ -14,6 +14,7 @@ import urn.ebay.apis.eBLBaseComponents.CountryCodeType;
 import urn.ebay.apis.eBLBaseComponents.CurrencyCodeType;
 import urn.ebay.apis.eBLBaseComponents.ErrorType;
 import urn.ebay.apis.eBLBaseComponents.PaymentActionCodeType;
+import urn.ebay.apis.eBLBaseComponents.PaymentDetailsItemType;
 import urn.ebay.apis.eBLBaseComponents.PaymentDetailsType;
 import urn.ebay.apis.eBLBaseComponents.SellerDetailsType;
 import urn.ebay.apis.eBLBaseComponents.SetExpressCheckoutRequestDetailsType;
@@ -35,25 +36,43 @@ public class PayPalAPIMapper {
 
 		// list of information about the payment
 		List<PaymentDetailsType> paymentDetailsList = new ArrayList<PaymentDetailsType>();
+		PaymentDetailsType paymentDetails = new PaymentDetailsType();
 
+		List <PaymentDetailsItemType> itemsList = new ArrayList<PaymentDetailsItemType>();
+		
 		//Iterate through the cart and add the items
 		for (ShoppingCartItem cartItem: cart.getShoppingCartItems().keySet())
 		{
 			int itemQuantity = cart.getShoppingCartItems().get(cartItem);
-		
-			PaymentDetailsType paymentDetails = new PaymentDetailsType();
 
-			//Set item total
-			BasicAmountType orderTotal1 = new BasicAmountType(CurrencyCodeType.USD,
-					String.valueOf(cartItem.getPrice() * itemQuantity));
-			paymentDetails.setOrderTotal(orderTotal1);
-			paymentDetails.setPaymentAction(PaymentActionCodeType.SALE);
+			//Set the amount for the item
+			PaymentDetailsItemType paymentDetailsItem = new PaymentDetailsItemType();
+			BasicAmountType itemAmount = new BasicAmountType(CurrencyCodeType.USD,
+					String.valueOf(cartItem.getPrice()));
+			paymentDetailsItem.setAmount(itemAmount);
 			
-			addSellerInfoToPaymentDetails(paymentDetails);
-			addShippingAddressInfoToPaymentDetails(paymentDetails);
-			paymentDetails.setPaymentRequestID(cartItem.getDescription());
-			paymentDetailsList.add(paymentDetails);
+			//Set description
+			paymentDetailsItem.setDescription(cartItem.getDescription());
+			
+			//Set quantity
+			paymentDetailsItem.setQuantity(itemQuantity);
+			
+			itemsList.add(paymentDetailsItem);
 		}
+		
+		paymentDetails.setPaymentDetailsItem(itemsList);
+
+		//Set total cost
+		BasicAmountType orderTotal1 = new BasicAmountType(CurrencyCodeType.USD,
+				String.valueOf(cart.getTotalCost()));
+		paymentDetails.setOrderTotal(orderTotal1);
+		paymentDetails.setPaymentAction(PaymentActionCodeType.SALE);
+		
+		addSellerInfoToPaymentDetails(paymentDetails);
+		addShippingAddressInfoToPaymentDetails(paymentDetails);
+		paymentDetails.setPaymentRequestID("Description");
+		paymentDetailsList.add(paymentDetails);
+		
 		
 		setExpressCheckoutRequestDetails.setPaymentDetails(paymentDetailsList);
 

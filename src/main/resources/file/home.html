@@ -1,58 +1,47 @@
 <html>
 
-
-<script type="text/javascript">
-function validateForm() {
-alert("HI");
-if (document.getElementById('check_orange').checked == 1){
-	 orange_quantity.disabled = true;
-	 alert("HI");
-}
-    return true;
-</script>
-
-	<body>
-<form action="/buy" method="post" onsubmit="validateForm()">
-<table>
+<body>
+<form action="/buy" method="POST"">
+<table cellpadding="5 pixels"cellspacing="5 pixels">
 	<tr>
 		<td>  </td>
-		<td> Fruit </td>
-		<td> Price </td>
-		<td> Quantity </td>
+		<td> <center> <b> Fruit </b> </center> </td>
+		<td> <center> <b> Price </b> </center> </td>
+		<td> <center> <b> Quantity </b> </center> </td>
 	</tr>
 	<tr>
-		<td> <input type="checkbox" id="check_orange"> </td>
-		<td> <img src="https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcRq6QF594gSebCztVKWksgv3ndJjh5UC3e2cDHPCb5uJ2RqKCbjLw"/> </td>
-		<td> 5.00 </td>
-		<td> <select name="orange_quantity">					
+		<td> <input type="checkbox" id="orange_check" name="orange_check"> </td>
+		<td> <img src="https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcTwJr0pE5_WnVqb1Olj2FJCiNrCF8xQTmisqBsJxXe-8llne98S"/ align="middle" height="100" width="100" title="orange"> </td>
+		<td> <input type="hidden" name="orange_price" value="5.00"> <center> 5.00 </center> </td>
+		<td> <center> <select name="orange_quantity">					
 					<option value="1">1</option>
 					<option value="2">2</option>
 					<option value="3">3</option>
-				</select>
+				</select> </center> 
 		</td>
 	</tr>
 	
 	<tr>
-		<td> <input type="checkbox" id="check_apple"> </td>
-		<td> <img src="https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcTwJr0pE5_WnVqb1Olj2FJCiNrCF8xQTmisqBsJxXe-8llne98S"/> </td>
-		<td> 4.00 </td>
-		<td> <select name="apple_quantity">					
+		<td> <input type="checkbox" id="apple_check" name="apple_check" value="check_apple"> </td>
+		<td> <img src="https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcRq6QF594gSebCztVKWksgv3ndJjh5UC3e2cDHPCb5uJ2RqKCbjLw"/ align="middle" height="120" width="100" title="apple"> </td>
+		<td> <input type="hidden" name="apple_price" value="4.00"> <center> 4.00 </center> </td>
+		<td> <center> <select name="apple_quantity">					
 					<option value="1">1</option>
 					<option value="2">2</option>
 					<option value="3">3</option>
-				</select>
+				</select> </center> 
 		</td>
 	</tr>
 	
 	<tr>
-		<td> <input type="checkbox" id="check_banana"> </td>
-		<td> <img src="https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcQtlf2o0ZfF9h_I4E4qPcCwXBIw4xVDjvHFYb2wHmoEdjtdIaCV"/> </td>
-		<td> 6.00 </td>
-		<td> <select name="banana_quantity">					
+		<td> <input type="checkbox" id="banana_check" name="banana_check"> </td>
+		<td> <img src="https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcQtlf2o0ZfF9h_I4E4qPcCwXBIw4xVDjvHFYb2wHmoEdjtdIaCV"/ align="middle" height="100" width="100" title="banana"> </td>
+		<td> <input type="hidden" name="banana_price" value="6.00"> <center> 6.00 </center> </td>
+		<td> <center> <select name="banana_quantity">					
 					<option value="1">1</option>
 					<option value="2">2</option>
 					<option value="3">3</option>
-				</select>
+				</select> </center>
 		</td>
 	</tr>
 </table>

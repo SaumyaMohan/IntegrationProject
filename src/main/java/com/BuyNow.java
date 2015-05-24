@@ -2,6 +2,8 @@ package main.java.com;
 
 import java.util.Set;
 
+import org.eclipse.jetty.util.log.Slf4jLog;
+
 import main.java.PayPal.PaypalIntegration;
 import main.java.PayPal.SetExpressCheckout;
 import spark.Request;
@@ -9,42 +11,34 @@ import spark.Response;
 import spark.Route;
 
 public class BuyNow implements Route{
-	private static final double ORANGES_PRICE = 5.00;
-	private static final double APPLES_PRICE = 6.00;
-	private static final double BANANA_PRICE = 4.00;
-
+	
 	public Object handle(Request request, Response response) throws Exception {
 		Set<String> params = request.queryParams();
 		
+		double orangePrice = Double.parseDouble(request.queryParams("orange_price"));
+		double applePrice = Double.parseDouble(request.queryParams("apple_price"));
+		double bananaPrice = Double.parseDouble(request.queryParams("banana_price"));
 		
-		/*
-		 *  RESTORE THIS
-		int numOranges = Integer.parseInt(request.params("orange_quantity"));
-		int numApples = Integer.parseInt(request.params("apple_quantity"));
-		int numBananas = Integer.parseInt(request.params("bananas_quantity"));
-		*/
-		
-		//TEMP
-		int numOranges = 1;
-		int numApples = 2;
-		int numBananas = 1;
+		int numOranges = params.contains("orange_check") ? Integer.parseInt(request.queryParams("orange_quantity")) : 0;
+		int numApples = params.contains("apple_check") ? Integer.parseInt(request.queryParams("apple_quantity")) : 0;
+		int numBananas = params.contains("banana_check") ? Integer.parseInt(request.queryParams("banana_quantity")) : 0;
 		
 		//Create a new shopping cart
 		ShoppingCart stuffToBuy = new ShoppingCart();
 		
 		//Create and add the items to the cart
-		if (numOranges >=1){
-			ShoppingCartItem oranges = new ShoppingCartItem("Oranges", ORANGES_PRICE);
+		if (numOranges > 0){
+			ShoppingCartItem oranges = new ShoppingCartItem("Oranges", orangePrice);
 			stuffToBuy.addItemToShoppingCart(oranges, numOranges);
 		}
 		
-		if (numApples>=1){
-			ShoppingCartItem apples = new ShoppingCartItem("Apples", APPLES_PRICE);
+		if (numApples > 0){
+			ShoppingCartItem apples = new ShoppingCartItem("Apples", applePrice);
 			stuffToBuy.addItemToShoppingCart(apples, numApples);
 		}
 		
-		if (numBananas >=1){
-			ShoppingCartItem bananas = new ShoppingCartItem("Bananas", BANANA_PRICE);
+		if (numBananas > 0 ){
+			ShoppingCartItem bananas = new ShoppingCartItem("Bananas", bananaPrice);
 			stuffToBuy.addItemToShoppingCart(bananas, numBananas);
 		}
 		
